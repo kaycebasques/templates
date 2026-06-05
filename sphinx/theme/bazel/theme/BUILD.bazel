@@ -1,4 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 
 py_library(
     name = "theme",
@@ -11,4 +12,17 @@ py_library(
         "search.html",
     ],
     visibility = ["//visibility:public"],
+)
+
+py_package(
+    name = "theme_pkg",
+    packages = ["theme"],
+    deps = [":theme"],
+)
+
+py_wheel(
+    name = "wheel",
+    distribution = "sphinx_theme_bazel",
+    version = "0.0.0",
+    deps = [":theme_pkg"],
 )
