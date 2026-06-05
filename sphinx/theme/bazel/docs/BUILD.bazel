@@ -1,0 +1,40 @@
+load("@sphinxdocs//sphinxdocs:sphinx.bzl", "sphinx_build_binary", "sphinx_docs")
+load("@sphinxdocs//sphinxdocs:sphinx_docs_library.bzl", "sphinx_docs_library")
+
+package(default_visibility = ["//visibility:private"])
+
+sphinx_docs_library(
+    name = "content",
+    srcs = [
+        "index.rst",
+    ],
+)
+
+# sphinx_docs_library(
+#     name = "extensions",
+#     srcs = [
+#         "_extensions/sitemap.py",
+#     ],
+# )
+
+sphinx_build_binary(
+    name = "sphinx",
+    deps = [
+        "@pypi//sphinx",
+    ],
+)
+
+sphinx_docs(
+    name = "docs",
+    config = "conf.py",
+    formats = ["html"],
+    sphinx = ":sphinx",
+    strip_prefix = "docs/",
+    deps = [
+        ":content",
+	# ":extensions",
+    ],
+    visibility = ["//visibility:public"],
+    allow_persistent_workers = False,
+    extra_opts = ["--fail-on-warning"],
+)
