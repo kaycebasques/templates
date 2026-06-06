@@ -1,0 +1,42 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+py_library(
+    name = "harness",
+    srcs = ["harness.py"],
+    imports = ["."],
+    deps = [
+        # "@pypi//playwright",
+        "@pypi//sphinx",
+    ],
+)
+
+py_test(
+    name = "test_html",
+    srcs = ["test_html.py"],
+    deps = [
+        ":harness",
+        "//theme",
+        "@pypi//sphinx",
+        "@pypi//docutils",
+        "@pypi//jinja2",
+        "@pypi//babel",
+        "@pypi//alabaster",
+        "@pypi//imagesize",
+        "@pypi//snowballstemmer",
+        "@pypi//sphinxcontrib_applehelp",
+        "@pypi//sphinxcontrib_devhelp",
+        "@pypi//sphinxcontrib_htmlhelp",
+        "@pypi//sphinxcontrib_jsmath",
+        "@pypi//sphinxcontrib_qthelp",
+        "@pypi//sphinxcontrib_serializinghtml",
+        "@pypi//markupsafe",
+        "@pypi//roman_numerals",
+    ],
+)
+
+test_suite(
+    name = "tests",
+    tests = [
+        ":test_html",
+    ],
+)
