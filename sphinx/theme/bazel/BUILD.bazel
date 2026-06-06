@@ -1,1 +1,11 @@
-# Empty
+alias(
+    name = "serve",
+    actual = "//docs:docs.serve",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "ls",
+    actual = "//docs:_docs/_sources",
+    visibility = ["//visibility:public"],
+)

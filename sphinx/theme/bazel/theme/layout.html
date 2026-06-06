@@ -1,9 +1,18 @@
 <!doctype html>
-<html>
+<html lang="{{language}}">
   <head>
+    <meta charset="utf-8">
     <title>{{ title }}</title>
+    {%- for js in js_files %}
+      {{ js_tag(js) }}
+    {%- endfor %}
+    {%- for css in css_files %}
+      {{ css_tag(css) }}
+    {%- endfor %}
   </head>
   <body>
-    {% block body %}{% endblock %}
+    <main>
+      {% block body %}{{ body }}{% endblock %}
+    </main>
   </body>
 </html>

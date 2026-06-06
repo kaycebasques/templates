@@ -5,7 +5,7 @@ py_library(
     name = "theme",
     srcs = ["__init__.py"],
     data = [
-        "theme.conf",
+        "theme.toml",
         "genindex.html",
         "layout.html",
         "page.html",
@@ -15,14 +15,19 @@ py_library(
 )
 
 py_package(
-    name = "theme_pkg",
+    name = "package",
     packages = ["theme"],
     deps = [":theme"],
 )
 
 py_wheel(
     name = "wheel",
-    distribution = "sphinx_theme_bazel",
+    distribution = "theme",
     version = "0.0.0",
-    deps = [":theme_pkg"],
+    entry_points = {
+        "sphinx.html_themes": [
+            "theme = theme",
+        ],
+    },
+    deps = [":package"],
 )

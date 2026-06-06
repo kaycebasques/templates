@@ -1,10 +1,6 @@
-import os
+from pathlib import Path
 
 
 def setup(app):
-    app.add_html_theme('theme', os.path.abspath(os.path.dirname(__file__)))
-    return {
-        'version': '0.0.0',
-        'parallel_read_safe': True,
-        'parallel_write_safe': True,
-    }
+    app.add_html_theme('theme', Path(__file__).resolve().parent)
+    return {"parallel_read_safe": True, "parallel_write_safe": True}

@@ -1,13 +1,14 @@
 load("@sphinxdocs//sphinxdocs:sphinx.bzl", "sphinx_build_binary", "sphinx_docs")
 load("@sphinxdocs//sphinxdocs:sphinx_docs_library.bzl", "sphinx_docs_library")
 
-package(default_visibility = ["//visibility:private"])
+package(default_visibility = ["//visibility:public"])
 
 sphinx_docs_library(
     name = "content",
     srcs = [
         "index.rst",
     ],
+    visibility = ["//visibility:private"],
 )
 
 # sphinx_docs_library(
@@ -23,6 +24,7 @@ sphinx_build_binary(
         "@pypi//sphinx",
         "//theme",
     ],
+    visibility = ["//visibility:private"],
 )
 
 sphinx_docs(
@@ -35,7 +37,6 @@ sphinx_docs(
         ":content",
 	# ":extensions",
     ],
-    visibility = ["//visibility:public"],
     allow_persistent_workers = False,
     extra_opts = ["--fail-on-warning"],
 )
