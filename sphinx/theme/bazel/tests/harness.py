@@ -8,7 +8,7 @@ import sys
 import textwrap
 from contextlib import contextmanager
 
-# from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright
 from sphinx.application import Sphinx
 
 class SphinxTestBase(unittest.TestCase):
@@ -46,6 +46,7 @@ class SphinxTestBase(unittest.TestCase):
             doctreedir.mkdir()
         app = Sphinx(str(srcdir), str(srcdir), str(outdir), str(doctreedir), "html")
         app.build()
+        print(str(outdir))
         return outdir
 
     def start_server(self, directory):
@@ -58,13 +59,17 @@ class SphinxTestBase(unittest.TestCase):
         time.sleep(1)
         return f"http://localhost:{self.port}"
 
-    # @contextmanager
-    # def run_playwright(self):
-    #     """Context manager to run Playwright and yield a page object."""
-    #     with sync_playwright() as p:
-    #         browser = p.chromium.launch()
-    #         page = browser.new_page()
-    #         try:
-    #             yield page
-    #         finally:
-    #             browser.close()
+    @contextmanager
+    def run_playwright(self):
+        """Context manager to run Playwright and yield a page object."""
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            context = browser.new_context()
+            timeout_ms = 3000
+            context.set_default_timeout(timeout_ms)
+            context.set_default_navigation_timeout(timeout_ms)
+            page = context.new_page()
+            try:
+                yield page
+            finally:
+                browser.close()

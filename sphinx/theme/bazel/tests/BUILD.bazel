@@ -1,42 +1,56 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_test")
 
+pypi_deps = [
+    "@pypi//alabaster",
+    "@pypi//babel",
+    "@pypi//docutils",
+    "@pypi//imagesize",
+    "@pypi//jinja2",
+    "@pypi//markupsafe",
+    "@pypi//playwright",
+    "@pypi//roman_numerals",
+    "@pypi//snowballstemmer",
+    "@pypi//sphinx",
+    "@pypi//sphinxcontrib_applehelp",
+    "@pypi//sphinxcontrib_devhelp",
+    "@pypi//sphinxcontrib_htmlhelp",
+    "@pypi//sphinxcontrib_jsmath",
+    "@pypi//sphinxcontrib_qthelp",
+    "@pypi//sphinxcontrib_serializinghtml",
+]
+
+deps = pypi_deps + [":harness", "//theme"]
+
 py_library(
     name = "harness",
     srcs = ["harness.py"],
     imports = ["."],
-    deps = [
-        # "@pypi//playwright",
-        "@pypi//sphinx",
+    deps = pypi_deps,
+)
+
+py_test(
+    name = "test_runtime",
+    srcs = ["test_runtime.py"],
+    data = [
+        "@playwright//:chromium",
     ],
+    # Direct Playwright to look for browsers in the runfiles
+    env = {
+        "PLAYWRIGHT_BROWSERS_PATH": "$(rootpath @playwright//:chromium)/../",
+    },
+    deps = deps,
 )
 
 py_test(
     name = "test_html",
     srcs = ["test_html.py"],
-    deps = [
-        ":harness",
-        "//theme",
-        "@pypi//sphinx",
-        "@pypi//docutils",
-        "@pypi//jinja2",
-        "@pypi//babel",
-        "@pypi//alabaster",
-        "@pypi//imagesize",
-        "@pypi//snowballstemmer",
-        "@pypi//sphinxcontrib_applehelp",
-        "@pypi//sphinxcontrib_devhelp",
-        "@pypi//sphinxcontrib_htmlhelp",
-        "@pypi//sphinxcontrib_jsmath",
-        "@pypi//sphinxcontrib_qthelp",
-        "@pypi//sphinxcontrib_serializinghtml",
-        "@pypi//markupsafe",
-        "@pypi//roman_numerals",
-    ],
+    deps = deps,
 )
 
 test_suite(
     name = "tests",
     tests = [
+        ":test_runtime",
         ":test_html",
     ],
 )

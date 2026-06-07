@@ -6,7 +6,7 @@ class TestHtml(SphinxTestBase):
     def test_title(self):
         outdir = self.build_docs(
             conf_content="""
-                project = "test_html"
+                project = "test_title"
                 extensions = ["theme"]
                 html_theme = "theme"
             """,
