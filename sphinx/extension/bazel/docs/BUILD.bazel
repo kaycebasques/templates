@@ -22,7 +22,7 @@ sphinx_build_binary(
     name = "sphinx",
     deps = [
         "@pypi//sphinx",
-        "//theme",
+        "//src",
     ],
     visibility = ["//visibility:private"],
 )

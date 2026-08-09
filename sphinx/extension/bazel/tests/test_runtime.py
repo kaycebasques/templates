@@ -8,8 +8,7 @@ class TestHiRole(SphinxTestBase):
         outdir = self.build_docs(
             conf_content="""
                 project = "test_link"
-                extensions = ["theme"]
-                html_theme = "theme"
+                extensions = ["src"]
             """,
             index_content="""
                 =========

@@ -19,7 +19,7 @@ pypi_deps = [
     "@pypi//sphinxcontrib_serializinghtml",
 ]
 
-deps = pypi_deps + [":harness", "//theme"]
+deps = pypi_deps + [":harness", "//src"]
 
 py_library(
     name = "harness",

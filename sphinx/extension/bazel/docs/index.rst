@@ -1,5 +1,7 @@
-=====
-theme
-=====
+=========
+extension
+=========
 
 Hello, world!
+
+.. hello::

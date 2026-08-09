@@ -3,21 +3,23 @@ from harness import SphinxTestBase
 
 
 class TestHtml(SphinxTestBase):
-    def test_title(self):
+    def test_title_and_extension(self):
         outdir = self.build_docs(
             conf_content="""
                 project = "test_title"
-                extensions = ["theme"]
-                html_theme = "theme"
+                extensions = ["src"]
             """,
             index_content="""
                 ==========
                 test_title
                 ==========
+
+                .. hello::
             """
         )
         html = (outdir / "index.html").read_text()
-        self.assertIn("<title>test_title</title>", html)
+        self.assertIn("test_title", html)
+        self.assertIn("Hello from the extension!", html)
 
 
 if __name__ == "__main__":

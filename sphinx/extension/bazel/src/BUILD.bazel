@@ -1,0 +1,21 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
+
+py_library(
+    name = "src",
+    srcs = ["__init__.py"],
+    visibility = ["//visibility:public"],
+)
+
+py_package(
+    name = "package",
+    packages = ["src"],
+    deps = [":src"],
+)
+
+py_wheel(
+    name = "wheel",
+    distribution = "extension",
+    version = "0.0.0",
+    deps = [":package"],
+)

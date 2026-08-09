@@ -1,4 +1,4 @@
-# sphinx/theme/bazel
+# sphinx/extension/bazel
 
 ## Running Sphinx Directly
 
@@ -24,7 +24,7 @@ This project uses Bazel for running tests. A wrapper for `bazelisk` is provided 
 To run all tests in the repository:
 
 ```bash
-./bazelisk/linux/amd64 test //tests
+./bazelisk/linux/amd64 test //...
 ```
 
 ### Run a Specific Test Target
@@ -40,7 +40,7 @@ To run a specific test, such as `test_runtime`:
 When a test fails, Bazel will print a summary and point to the log file.
 
 *   **Test Logs**: Detailed logs for each test run are stored in the `bazel-testlogs` directory. For example, the log for `test_runtime` can be found at:
-    [bazel-testlogs/tests/test_runtime/test.log](file:///usr/local/google/home/kayce/templates/sphinx/theme/bazel/bazel-testlogs/tests/test_runtime/test.log)
+    `bazel-testlogs/tests/test_runtime/test.log`
     This is a symlink to the actual log file in the Bazel execution root.
 
 ### Verbose Output and Debugging
@@ -91,11 +91,11 @@ This project is configured to build a Python wheel for distribution on PyPI.
 To build the wheel package:
 
 ```bash
-./bazelisk/linux/amd64 build //theme:wheel
+./bazelisk/linux/amd64 build //src:wheel
 ```
 
 The generated wheel will be located at:
-`bazel-bin/theme/sphinx_theme_bazel-[version]-py3-none-any.whl`
+`bazel-bin/src/extension-[version]-py3-none-any.whl`
 
 ### 2. Publish to PyPI
 
@@ -103,7 +103,7 @@ You can use `twine` to upload the built wheel to PyPI:
 
 ```bash
 pip install twine
-twine upload bazel-bin/theme/sphinx_theme_bazel-*.whl
+twine upload bazel-bin/src/extension-*.whl
 ```
 
-Before publishing, ensure you update the `version` and `distribution` (package name) in the `py_wheel` target in [theme/BUILD.bazel](file:///usr/local/google/home/kayce/templates/sphinx/theme/bazel/theme/BUILD.bazel).
+Before publishing, ensure you update the `version` and `distribution` (package name) in the `py_wheel` target in [src/BUILD.bazel](file:///usr/local/google/home/kayce/k/templates/sphinx/extension/bazel/src/BUILD.bazel).

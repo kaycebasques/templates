@@ -1,5 +1,0 @@
-[theme]
-inherit = "basic"
-stylesheets = []
-pygments_style = {default = "default", dark = "monokai"}
-sidebars = []

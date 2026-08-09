@@ -242,7 +242,7 @@
     "@@rules_playwright+//playwright:extensions.bzl%playwright": {
       "general": {
         "bzlTransitiveDigest": "aM+iQ/9IRBmfni+y5IVwpiWSnN9rzACSg0Qe0kRGxCk=",
-        "usagesDigest": "TJUlV/V2zgcRXDrAb153Jeom8XTgSDRRmxbAymvcD68=",
+        "usagesDigest": "meR5YhteFredVji63vKzPv7b3J5LHJGktEmA1HhqxOE=",
         "recordedFileInputs": {
           "@@rules_playwright+//tools/release/artifacts/cli-x86_64-unknown-linux-musl": "c478e5f07bc0a2b513ff7e7d9f33e9420e8f3bac4ec058c3e3bf332bff8362a1"
         },
