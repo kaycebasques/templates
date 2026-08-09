@@ -24,7 +24,7 @@ This project uses Bazel for running tests. A wrapper for `bazelisk` is provided 
 To run all tests in the repository:
 
 ```bash
-./bazelisk/linux/amd64 test //...
+./bazelisk test //...
 ```
 
 ### Run a Specific Test Target
@@ -32,7 +32,7 @@ To run all tests in the repository:
 To run a specific test, such as `test_runtime`:
 
 ```bash
-./bazelisk/linux/amd64 test //tests:test_runtime
+./bazelisk test //tests:test_runtime
 ```
 
 ### Inspecting Test Output
@@ -49,22 +49,22 @@ By default, Bazel may suppress test output unless the test fails. You can contro
 
 *   **Show all output (even for passing tests)**:
     ```bash
-    ./bazelisk/linux/amd64 test //tests:test_runtime --test_output=all
+    ./bazelisk test //tests:test_runtime --test_output=all
     ```
 *   **Stream output in real-time**: Useful for debugging hung tests.
     ```bash
-    ./bazelisk/linux/amd64 test //tests:test_runtime --test_output=streamed
+    ./bazelisk test //tests:test_runtime --test_output=streamed
     ```
 *   **Force rerun tests (bypass cache)**: Bazel caches successful test results. To force a rerun:
     ```bash
-    ./bazelisk/linux/amd64 test //tests:test_runtime --nocache_test_results
+    ./bazelisk test //tests:test_runtime --nocache_test_results
     ```
 
 ---
 
 ## FAQ: `bazelisk test` vs `bazelisk run`
 
-What is the difference between `./bazelisk/... test //tests:test_runtime` and `./bazelisk/... run //tests:test_runtime`?
+What is the difference between `./bazelisk test //tests:test_runtime` and `./bazelisk run //tests:test_runtime`?
 
 *   **`test` command**:
     *   Runs the test inside a **sandbox** environment.
@@ -91,7 +91,7 @@ This project is configured to build a Python wheel for distribution on PyPI.
 To build the wheel package:
 
 ```bash
-./bazelisk/linux/amd64 build //src:wheel
+./bazelisk build //src:wheel
 ```
 
 The generated wheel will be located at:

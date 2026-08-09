@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -e
+
+# Resolve directory of this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Detect Operating System
+OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+case "${OS}" in
+  linux*)
+    OS="linux"
+    ;;
+  darwin*)
+    OS="darwin"
+    ;;
+  msys*|mingw*|cygwin*|windows*)
+    OS="windows"
+    ;;
+  *)
+    echo "Error: Unsupported operating system '${OS}'" >&2
+    exit 1
+    ;;
+esac
+
+# Detect Architecture
+ARCH="$(uname -m | tr '[:upper:]' '[:lower:]')"
+case "${ARCH}" in
+  x86_64|amd64)
+    ARCH="amd64"
+    ;;
+  aarch64|arm64|armv8*)
+    ARCH="arm64"
+    ;;
+  armv7*)
+    ARCH="arm"
+    ;;
+  *)
+    echo "Error: Unsupported architecture '${ARCH}'" >&2
+    exit 1
+    ;;
+esac
+
+BINARY="${SCRIPT_DIR}/.bazelisk/${OS}/${ARCH}"
+
+if [ "${OS}" = "windows" ] && [ -f "${BINARY}.exe" ]; then
+  BINARY="${BINARY}.exe"
+fi
+
+if [ ! -f "${BINARY}" ]; then
+  echo "Error: Bazelisk binary not found at ${BINARY}" >&2
+  exit 1
+fi
+
+if [ ! -x "${BINARY}" ]; then
+  chmod +x "${BINARY}"
+fi
+
+exec "${BINARY}" "$@"
